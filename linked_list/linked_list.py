@@ -178,13 +178,3 @@ class LinkedList:
     def __repr__(self):
         return str([f"Value: {node.get_value()}, Pointing at: {node.get_pointer()}"
                     for index, node in enumerate(self.return_list())])
-
-
-
-new_list = LinkedList(5)
-new_list.add_node("Nancy")
-new_list.add_node("Nancy")
-new_list.add_node("Nancy")
-new_list.add_node("Nancy")
-new_list.add_node("Nancy")
-
