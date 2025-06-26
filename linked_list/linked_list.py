@@ -1,3 +1,5 @@
+from typing import Any
+
 from . import LinkedListNode
 
 
@@ -5,10 +7,13 @@ class LinkedList:
     def __init__(self, size: int):
         self.node_collection = []
 
+        # Initialise empty linked list
         for i in range(size):
             if i != size-1:
+                # If new node is not the last node, set pointer to point at the next index
                 new_node = LinkedListNode(pointer=i+1)
             else:
+                # If new node is the last node, set pointer to default (None)
                 new_node = LinkedListNode()
 
             self.node_collection.append(new_node)
@@ -16,14 +21,24 @@ class LinkedList:
         self.start = None
         self.next_free = 0
 
-    def node_peek(self, node_index) -> int:
+    def node_peek(self, node_index: int) -> int:
+        """
+        Node peek returns the index a given node points to
+        :param node_index: The index of the node whose pointer you want to peek at
+        :return: The index pointed at by the given node
+        """
         return self.node_collection[node_index].pointer
 
     def return_list(self) -> list[LinkedListNode]:
+        """
+        Returns a list containing all nodes in their logical order. Used for the repr() and str() functions
+        :return: A list of all nodes in their logical order
+        """
         temp_list = []
 
         current_node_index = self.start
 
+        # Loop through linked list and append nodes in the order of their pointers
         while current_node_index is not None:
             temp_list.append(self.node_collection[current_node_index])
 
@@ -31,7 +46,11 @@ class LinkedList:
 
         return temp_list
 
-    def add_node(self, new_value) -> None:
+    def add_node(self, new_value: Any) -> None:
+        """
+        Adds a new node to the list and places it in the correct logical position
+        :param new_value: The value of the new Node
+        """
         if self.next_free is None:
             # If the next_free pointer is pointing at nothing, the list is full and can't be added to
             print("Error adding new node: Linked list is full")
@@ -110,13 +129,17 @@ class LinkedList:
                 # Find the next free index
                 self.find_next_free()
 
-    def delete_node_by_value(self, value_to_delete):
+    def delete_node_by_value(self, value_to_delete: Any) -> None:
+        """
+        Deletes the given node from the linked list, and rearranges the logical order
+        :param value_to_delete: The value to remove from the list
+        """
         if self.start is None:
             # If the start pointer points at nothing, the list has no nodes, and cannot perform a delete
             print("The linked list is empty, cannot delete a node")
             return
 
-        # Track the node to be deleted along with its index and initialise it to None
+        # Track the node to be deleted along with its index and initialise both to None
         node_to_delete = None
         index_of_node_to_delete = None
 
@@ -172,9 +195,29 @@ class LinkedList:
         # If the for loop managed to cycle through the whole list without being escaped, the next_free pointer will be
         #  pointing at None, meaning the linked list is full
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str([i.get_value() for i in self.return_list()])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str([f"Value: {node.get_value()}, Pointing at: {node.get_pointer()}"
                     for index, node in enumerate(self.return_list())])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
