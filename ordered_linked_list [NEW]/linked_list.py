@@ -93,6 +93,10 @@ class OrderedLinkedList:
         print()
 
     def print_logical(self):
+        if self.head is None:
+            print("No nodes to print")
+            return
+
         current_node = self.node_array[self.head]
         print(current_node.value)
 
